@@ -17,7 +17,7 @@ print('Started post-processing at', datetime.now())
 
 # Parent directory containing all data
 parent_dir = 'C:/Users/arctic_vm1/Documents/PetraSim models/Qinghe/'
-model_version = 'Qinghe_V08'
+model_version = 'Qinghe_V09'
 # Model version
 # TODO modify to latest model version
 
@@ -94,6 +94,15 @@ for blk in df_elem_rock['ELEM'].values:
 
 df_elem_rock['Type'] = well_types
 df_elem_rock['Well'] = well_names
+
+# # Export dataframe with XY coordinates of NG004 elements to refine in later model
+# df_elem_rock_xy_NG4 = df_elem_rock[df_elem_rock['Rock']=='NG004']
+# elem_NG4_X_list = [dat.grid.block[row['ELEM']].centre[0] for idx, row in df_elem_rock_xy_NG4.iterrows()]
+# elem_NG4_Y_list = [dat.grid.block[row['ELEM']].centre[1] for idx, row in df_elem_rock_xy_NG4.iterrows()]
+# df_elem_rock_xy_NG4['X'] = elem_NG4_X_list
+# df_elem_rock_xy_NG4['Y'] = elem_NG4_Y_list
+# df_elem_rock_xy_NG4.to_excel(parent_dir+model_version+'/df_elem_rock_NG4.xlsx')
+# print('Exported df elem rock')
 
 # New FOFT dataframe including rocktypes and layer number
 foft_full = pd.merge(foft_csv, df_elem_rock, on='ELEM').drop(['INDEX', 'Sg', 'X(water2)'], axis=1)
