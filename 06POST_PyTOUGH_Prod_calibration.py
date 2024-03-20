@@ -171,13 +171,13 @@ def PCP_measured(well_long_name, water_level, water_level_init, z_PCP, T_prod, m
     p_loss_DW = darcy_weisbach_P_loss(L, T_prod, P_z_pump, m_prod)
     p_iter = P0
     # Array with n divisions between measured water level and PCP depth
-    n_divs = 1000.
+    n_divs = 750.
     delta_h = (z_PCP-water_level_init)/n_divs
     h_iter = water_level
     # Iterate to depth of the PCP and compute P
-    while h_iter<=z_PCP:
+    while round(h_iter,3)<=round(z_PCP,3):
         if h_iter==z_PCP:
-            print(well_long_name, h_iter)
+            print(well_long_name, h_iter, delta_h)
         p_iter+= steam_table.rho_pt(p_iter, T_prod) * 9.8 * delta_h * 1e-5 
         h_iter+= delta_h
         
